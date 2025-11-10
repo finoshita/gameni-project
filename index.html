@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>がめ煮プロジェクト - 教育×福祉×スポーツの総合プロジェクト</title>
+  <link rel="icon" href="inc-matsumoto.ico" type="image/x-icon">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+      line-height: 1.8;
+      color: #333;
+      background: #fff;
+    }
+
+    /* ヘッダー */
+    header {
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #00BCD4;
+      letter-spacing: 2px;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+      transition: color 0.3s;
+      font-size: 15px;
+    }
+
+    nav a:hover {
+      color: #00BCD4;
+    }
+
+    /* ヒーローセクション */
+    .hero {
+      position: relative;
+      height: 600px;
+      background: linear-gradient(135deg, rgba(0, 188, 212, 0.1) 0%, rgba(255, 255, 255, 0.9) 100%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f5f5f5" width="1200" height="600"/></svg>');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.3) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    .hero .subtitle {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 40px;
+    }
+
+    .hero .highlight {
+      color: #00BCD4;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: #00BCD4;
+      color: #fff;
+      padding: 18px 45px;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(0, 188, 212, 0.3);
+    }
+
+    .cta-button:hover {
+      background: #00ACC1;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 188, 212, 0.4);
+    }
+
+    /* コンテンツセクション */
+    section {
+      padding: 100px 40px;
+    }
+
+    .section-light {
+      background: #fff;
+    }
+
+    .section-gray {
+      background: #fafafa;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 60px;
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: #00BCD4;
+      border-radius: 2px;
+    }
+
+    /* グリッドレイアウト */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 240px;
+      background: linear-gradient(135deg, #e3f2fd 0%, #b3e5fc 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+    }
+
+    .card-content {
+      padding: 30px;
+    }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .card-description {
+      color: #666;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    /* パートナーセクション */
+    .partner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 50px;
+      margin-top: 60px;
+    }
+
+    .partner-card {
+      text-align: center;
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .partner-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .partner-logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 25px;
+      background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 40px;
+      box-shadow: 0 8px 25px rgba(0, 188, 212, 0.3);
+    }
+
+    .partner-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .partner-role {
+      color: #00BCD4;
+      font-weight: 600;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .partner-description {
+      color: #666;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    /* フロアセクション */
+    .floor-section {
+      margin-top: 80px;
+    }
+
+    .floor-item {
+      background: #fff;
+      border-radius: 12px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .floor-item:hover {
+      transform: translateX(10px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .floor-number {
+      display: inline-block;
+      background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+      color: #fff;
+      padding: 8px 24px;
+      border-radius: 25px;
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .floor-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .floor-subtitle {
+      color: #00BCD4;
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .floor-description {
+      color: #666;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .floor-features {
+      margin-top: 20px;
+      padding-left: 25px;
+    }
+
+    .floor-features li {
+      color: #666;
+      margin-bottom: 10px;
+      line-height: 1.8;
+    }
+
+    /* 理念セクション */
+    .vision-box {
+      background: linear-gradient(135deg, #e3f2fd 0%, #fff 100%);
+      border-radius: 12px;
+      padding: 50px;
+      margin-bottom: 40px;
+      border-left: 5px solid #00BCD4;
+    }
+
+    .vision-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .vision-text {
+      font-size: 16px;
+      color: #666;
+      line-height: 2;
+    }
+
+    /* ビジョンレイアウト（テキストと画像の2カラム） */
+    .vision-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: start;
+      margin-top: 40px;
+    }
+
+    .vision-text-area {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .vision-image-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .vision-main-image {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 188, 212, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .vision-main-image:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 40px rgba(0, 188, 212, 0.3);
+    }
+
+    /* ポイントリスト */
+    .point-list {
+      margin-top: 40px;
+    }
+
+    .point-item {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border-left: 5px solid #00BCD4;
+    }
+
+    .point-item h3 {
+      color: #333;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .point-item p {
+      color: #666;
+      line-height: 1.8;
+    }
+
+    /* フッター */
+    footer {
+      background: #263238;
+      color: #fff;
+      padding: 60px 40px 30px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 50px;
+      margin-bottom: 40px;
+    }
+
+    .footer-section h3 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #00BCD4;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-section a {
+      color: #bbb;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-section a:hover {
+      color: #00BCD4;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid #37474f;
+      color: #999;
+      font-size: 14px;
+    }
+
+    /* レスポンシブ */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero .subtitle {
+        font-size: 16px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .partner-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 60px 20px;
+      }
+
+      .vision-box {
+        padding: 30px 25px;
+      }
+
+      .vision-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .vision-image-area {
+        position: relative;
+        top: 0;
+        order: -1;
+      }
+
+      .vision-main-image {
+        max-width: 100%;
+      }
+
+      .floor-item {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-container">
+      <div class="logo">がめ煮プロジェクト</div>
+      <nav>
+        <ul>
+          <li><a href="#vision">理念</a></li>
+          <li><a href="#partners">参画企業</a></li>
+          <li><a href="#facility">施設概要</a></li>
+          <li><a href="#contact">お問い合わせ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ヒーローセクション -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>全国30万人の不登校支援に<br><span class="highlight">民間が立ち上がる</span></h1>
+      <p class="subtitle">教育×福祉×スポーツの総合プロジェクト<br>「良い取り組み」で終わらせず、持続可能な仕組みを構築</p>
+      <a href="#vision" class="cta-button">プロジェクトについて詳しく見る</a>
+    </div>
+  </section>
+
+  <!-- 理念セクション -->
+  <section id="vision" class="section-light">
+    <div class="container">
+      <h2 class="section-title">がめ煮プロジェクトの目的</h2>
+
+      <div class="vision-layout">
+        <div class="vision-text-area">
+          <div class="vision-box">
+            <h3 class="vision-title">「教育×福祉×スポーツ」の総合プロジェクト</h3>
+            <p class="vision-text">
+              教育の枠を超え、地域・企業・社会を巻き込む"新しい共創モデル"として発信。立花高校・斉藤校長先生の理念「生徒一人ひとりの可能性を社会へ開く教育」を軸に展開します。
+            </p>
+          </div>
+
+          <div class="point-list">
+            <div class="point-item">
+              <h3>持続可能な仕組みの構築</h3>
+              <p>"良い取り組み"で終わらせず、応援プラットフォーム構築・イベント開催・企業協賛・フランチャイズなどによる収益モデル化を実現。長期的に不登校支援を続けられる基盤を作ります。</p>
+            </div>
+
+            <div class="point-item">
+              <h3>地域に開かれた教育モデルの発信</h3>
+              <p>立花高等学校の「生徒一人ひとりの可能性を社会へ開く教育」の理念を基盤に、地域社会全体で子どもたちを支える新しい教育の形を提示します。</p>
+            </div>
+
+            <div class="point-item">
+              <h3>民間主導の社会貢献モデル</h3>
+              <p>全国30万人の不登校の子どもたちを支援するため、教育機関・福祉事業者・スポーツ企業・社会起業家が連携。民間だからこそできる柔軟で革新的なアプローチを実践します。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="vision-image-area">
+          <img src="sports_gameni.png" alt="子どもたちが楽しく活動する様子" class="vision-main-image">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 参画企業セクション -->
+  <section id="partners" class="section-gray">
+    <div class="container">
+      <h2 class="section-title">参画企業・団体</h2>
+
+      <div class="partner-grid">
+        <div class="partner-card">
+          <div class="partner-logo"><img src="tachibana_highschool.png" alt="立花高等学校"
+              style="width: 80px; height: 80px; object-fit: contain;"></div>
+          <h3 class="partner-name">立花高等学校</h3>
+          <p class="partner-role">教育理念の提供</p>
+          <p class="partner-description">「生徒一人ひとりの可能性を社会へ開く教育」を実践。地域に開かれた教育モデルを発信し、プロジェクトの理念的基盤を担います。</p>
+        </div>
+
+        <div class="partner-card">
+          <div class="partner-logo"></div>
+          <h3 class="partner-name">株式会社パイルアップたちばな</h3>
+          <p class="partner-role">就労支援ノウハウ</p>
+          <p class="partner-description">就労支援事業の運営経験を活かし、総合的な職業訓練支援のノウハウを提供。障害者雇用の観点から包括的なサポートを実現します。</p>
+        </div>
+
+        <div class="partner-card">
+          <div class="partner-logo"><img src="leifras.png" alt="リーフラス株式会社"
+              style="width: 80px; height: 80px; object-fit: contain;"></div>
+          <h3 class="partner-name">リーフラス株式会社</h3>
+          <p class="partner-role">スポーツ×ソーシャルビジネス</p>
+          <p class="partner-description">スポーツとソーシャルビジネスを融合。ナスダック上場で注目を集める社会起業型企業として、革新的な取り組みをもたらします。</p>
+        </div>
+
+        <div class="partner-card">
+          <div class="partner-logo"><img src="inc-matsumoto.ico" alt="株式会社マツモト"
+              style="width: 80px; height: 80px; object-fit: contain;"></div>
+          <h3 class="partner-name">株式会社マツモト</h3>
+          <p class="partner-role">教育インフラ・理念発信</p>
+          <p class="partner-description">全国7,000校に卒業アルバムを届ける教育インフラを保有。プロジェクトの理念を社会に広く発信し、実装する役割を担います。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 施設概要セクション -->
+  <section id="facility" class="section-light">
+    <div class="container">
+      <h2 class="section-title">施設概要</h2>
+      <div style="text-align: center; margin-bottom: 40px;">
+        <img src="DC.png" alt="施設イメージ"
+          style="max-width: 300px; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);">
+      </div>
+
+      <div class="floor-section">
+        <div class="floor-item">
+          <span class="floor-number">4F</span>
+          <h3 class="floor-title">研修施設</h3>
+          <p class="floor-subtitle">ー人材育成の観点からー</p>
+          <div class="floor-features">
+            <ul>
+              <li>様々なセミナーを自主企画し、人材育成の場を提供</li>
+              <li>外部機関への研修会場として貸出し、地域の学びのハブに</li>
+              <li>企業研修や教育関係者向けワークショップの開催拠点</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="floor-item">
+          <span class="floor-number">3F</span>
+          <h3 class="floor-title">体育施設（リーフラス様運営）</h3>
+          <p class="floor-subtitle">ースポーツを通じた健康支援ー</p>
+          <div class="floor-features">
+            <ul>
+              <li>卓球やちょっとした身体機能回復ストレッチ等</li>
+              <li>ゴールボールやモルックなどのパラスポーツの普及を図る</li>
+              <li>スポーツを通じた社会参加と健康増進の実践拠点</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="floor-item">
+          <span class="floor-number">2F</span>
+          <h3 class="floor-title">フリースクール（OHANA様運営）</h3>
+          <p class="floor-subtitle">ー不登校支援の観点からー</p>
+          <div class="floor-features">
+            <ul>
+              <li>フリースクールとして、一人ひとりに寄り添った学習支援</li>
+              <li>放課後等デイサービスを併設し、多様なニーズに対応</li>
+              <li>安心して過ごせる居場所づくりと成長のサポート</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="floor-item">
+          <span class="floor-number">1F</span>
+          <h3 class="floor-title">就労継続支援施設（パイルアップ立花様運営）</h3>
+          <p class="floor-subtitle">ー障害者雇用の観点からー</p>
+          <div class="floor-features">
+            <ul>
+              <li>コワーキングスペースで多様な働き方をサポート</li>
+              <li>宅配弁当事業を通じた実践的な就労訓練</li>
+              <li>相談業務など、きめ細やかな支援体制を整備</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>がめ煮プロジェクト</h3>
+        <p>教育×福祉×スポーツの総合プロジェクト<br>全国30万人の不登校支援に民間が立ち上がる</p>
+      </div>
+      <div class="footer-section">
+        <h3>リンク</h3>
+        <ul>
+          <li><a href="#vision">プロジェクトの理念</a></li>
+          <li><a href="#partners">参画企業・団体</a></li>
+          <li><a href="#facility">施設概要</a></li>
+          <li><a href="#contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>お問い合わせ</h3>
+        <p>プロジェクトに関するお問い合わせは、<br>お問い合わせフォームよりご連絡ください。</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 がめ煮プロジェクト. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // スムーススクロール
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // モバイルメニュー機能
+    const createMobileMenu = () => {
+      const header = document.querySelector('header');
+      const nav = document.querySelector('nav');
+
+      const menuButton = document.createElement('button');
+      menuButton.className = 'mobile-menu-button';
+      menuButton.innerHTML = '☰';
+      menuButton.style.cssText = `
+                display: none;
+                background: none;
+                border: none;
+                font-size: 28px;
+                color: #00BCD4;
+                cursor: pointer;
+                padding: 5px 10px;
+            `;
+
+      const checkMobile = () => {
+        if (window.innerWidth <= 768) {
+          menuButton.style.display = 'block';
+          nav.style.display = nav.classList.contains('active') ? 'block' : 'none';
+        } else {
+          menuButton.style.display = 'none';
+          nav.style.display = 'block';
+        }
+      };
+
+      menuButton.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        checkMobile();
+      });
+
+      document.querySelector('.header-container').appendChild(menuButton);
+      window.addEventListener('resize', checkMobile);
+      checkMobile();
+    };
+
+    // パララックス効果
+    let lastScrollY = window.scrollY;
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+      const header = document.querySelector('header');
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        header.style.transform = 'translateY(-100%)';
+      } else {
+        header.style.transform = 'translateY(0)';
+      }
+
+      lastScrollY = currentScrollY;
+
+      const hero = document.querySelector('.hero-content');
+      if (hero && currentScrollY < 600) {
+        hero.style.transform = `translateY(${currentScrollY * 0.5}px)`;
+        hero.style.opacity = 1 - currentScrollY / 600;
+      }
+    });
+
+    document.querySelector('header').style.transition = 'transform 0.3s ease';
+
+    // スクロールアニメーション
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, index * 100);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.card, .partner-card, .floor-item, .point-item, .vision-box').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+
+    // ページ読み込み時の初期化
+    document.addEventListener('DOMContentLoaded', () => {
+      createMobileMenu();
+
+      document.body.style.opacity = '0';
+      setTimeout(() => {
+        document.body.style.transition = 'opacity 0.5s ease';
+        document.body.style.opacity = '1';
+      }, 100);
+    });
+
+    // スクロール進捗インジケーター
+    const createProgressBar = () => {
+      const progressBar = document.createElement('div');
+      progressBar.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 3px;
+                background: linear-gradient(90deg, #00BCD4, #00ACC1);
+                width: 0%;
+                z-index: 9999;
+                transition: width 0.1s ease;
+            `;
+      document.body.appendChild(progressBar);
+
+      window.addEventListener('scroll', () => {
+        const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        progressBar.style.width = scrolled + '%';
+      });
+    };
+
+    createProgressBar();
+
+    // お問い合わせフォーム機能（モーダル）
+    const createContactModal = () => {
+      const modal = document.createElement('div');
+      modal.id = 'contact-modal';
+      modal.style.cssText = `
+                display: none;
+                position: fixed;
+                z-index: 10000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.7);
+                align-items: center;
+                justify-content: center;
+            `;
+
+      modal.innerHTML = `
+                <div style="background: white; padding: 40px; border-radius: 12px; max-width: 500px; width: 90%; position: relative;">
+                    <button onclick="document.getElementById('contact-modal').style.display='none'" style="position: absolute; right: 20px; top: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: #999;">×</button>
+                    <h3 style="margin-bottom: 25px; color: #333; font-size: 24px;">お問い合わせ</h3>
+                    <form id="contact-form">
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; color: #666; font-weight: 600;">お名前</label>
+                            <input type="text" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px;">
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; color: #666; font-weight: 600;">メールアドレス</label>
+                            <input type="email" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px;">
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; color: #666; font-weight: 600;">お問い合わせ内容</label>
+                            <textarea required rows="5" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px; resize: vertical;"></textarea>
+                        </div>
+                        <button type="submit" style="width: 100%; padding: 15px; background: #00BCD4; color: white; border: none; border-radius: 50px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.3s;">送信する</button>
+                    </form>
+                </div>
+            `;
+
+      document.body.appendChild(modal);
+
+      document.querySelectorAll('a[href="#contact"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          modal.style.display = 'flex';
+        });
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+
+      document.getElementById('contact-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('お問い合わせありがとうございます。\n担当者より折り返しご連絡させていただきます。');
+        modal.style.display = 'none';
+        e.target.reset();
+      });
+    };
+
+    createContactModal();
+  </script>
+</body>
+
+</html>
