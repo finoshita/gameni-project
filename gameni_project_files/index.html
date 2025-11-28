@@ -526,6 +526,121 @@
 </head>
 
 <body>
+  <!-- パスワード保護オーバーレイ -->
+  <div id="password-overlay" style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  ">
+    <div style="
+      background: white;
+      padding: 50px;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    ">
+      <div style="
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+        border-radius: 50%;
+        margin: 0 auto 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      ">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+      <h2 style="color: #333; font-size: 24px; margin-bottom: 10px; font-weight: 700;">がめ煮プロジェクト</h2>
+      <p style="color: #666; margin-bottom: 30px; font-size: 14px;">このページは保護されています<br>パスワードを入力してください</p>
+      <div style="position: relative;">
+        <input 
+          type="password" 
+          id="password-input" 
+          placeholder="パスワード"
+          style="
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+          "
+          onkeypress="if(event.key==='Enter')checkPassword()"
+          onfocus="this.style.borderColor='#00BCD4'"
+          onblur="this.style.borderColor='#e0e0e0'"
+        >
+      </div>
+      <button 
+        onclick="checkPassword()"
+        style="
+          width: 100%;
+          padding: 15px;
+          background: #00BCD4;
+          color: white;
+          border: none;
+          border-radius: 50px;
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+          margin-top: 15px;
+          transition: background 0.3s, transform 0.2s;
+        "
+        onmouseover="this.style.background='#00ACC1'"
+        onmouseout="this.style.background='#00BCD4'"
+      >
+        ログイン
+      </button>
+      <p id="password-error" style="color: #e53935; margin-top: 15px; font-size: 14px; display: none;">
+        パスワードが正しくありません
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById('password-input');
+      const error = document.getElementById('password-error');
+      const overlay = document.getElementById('password-overlay');
+      
+      if (input.value === 'gameni2025') {
+        overlay.style.transition = 'opacity 0.5s ease';
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+          overlay.style.display = 'none';
+        }, 500);
+        sessionStorage.setItem('authenticated', 'true');
+      } else {
+        error.style.display = 'block';
+        input.style.borderColor = '#e53935';
+        input.value = '';
+        setTimeout(() => {
+          error.style.display = 'none';
+          input.style.borderColor = '#e0e0e0';
+        }, 3000);
+      }
+    }
+    
+    // セッション中は認証をスキップ
+    if (sessionStorage.getItem('authenticated') === 'true') {
+      document.getElementById('password-overlay').style.display = 'none';
+    }
+  </script>
+
   <!-- ヘッダー -->
   <header>
     <div class="header-container">
